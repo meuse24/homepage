@@ -1,0 +1,62 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  lang?: string;
+}
+
+const {
+  title = "MEUSE24_OS – Terminal Portfolio | Developer from Austria",
+  description = "MEUSE24_OS v2.0 – Terminal-style portfolio of a developer from Austria. Code. Coffee. Repeat.",
+  lang = "en"
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang} class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="theme-color" content="#0a0a0f" />
+
+  <!-- Google Fonts: JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- SEO & Social Meta -->
+  <meta property="og:title" content={title}>
+  <meta property="og:description" content={description}>
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://meuse24.info">
+  <meta property="og:image" content="https://meuse24.info/title.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content={title}>
+  <meta name="twitter:description" content={description}>
+  <meta name="twitter:image" content="https://meuse24.info/title.jpg">
+  <link rel="canonical" href="https://meuse24.info">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "MEUSE24",
+    "url": "https://meuse24.info",
+    "description": "Developer from Austria - Code. Coffee. Repeat.",
+    "nationality": "Austrian",
+    "knowsAbout": ["Web Development", "Programming", "Coffee"]
+  }
+  </script>
+</head>
+<body class="min-h-screen antialiased">
+  <slot />
+</body>
+</html>

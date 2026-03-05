@@ -1,0 +1,266 @@
+---
+interface Props {
+  id: string;
+  emoji: string;
+  titleKey: string;
+  descKey: string;
+  featuresKey?: string;
+  techKey?: string;
+  modesKey?: string;
+  platformKey?: string;
+  ctaKey: string;
+  ctaLink: string;
+  repoKey?: string;
+  repoLink?: string;
+  accentColor?: string;
+}
+
+const {
+  id,
+  emoji,
+  titleKey,
+  descKey,
+  featuresKey,
+  techKey,
+  modesKey,
+  platformKey,
+  ctaKey,
+  ctaLink,
+  repoKey,
+  repoLink,
+  accentColor = '#00fff5'
+} = Astro.props;
+
+// Extract the project name from the id
+const projectName = id;
+---
+
+<article id={id} class="project-card" style={`--accent-color: ${accentColor};`}>
+  <!-- Terminal window title bar -->
+  <div class="card-titlebar">
+    <span class="card-title">
+      <span class="title-dash">─</span>
+      {projectName}
+      <span class="title-dash">─</span>
+    </span>
+    <a
+      href={ctaLink}
+      class="card-link-icon"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`Open ${projectName}`}
+    >[↗]</a>
+  </div>
+
+  <!-- Card body -->
+  <div class="card-body">
+    <!-- Project title with emoji -->
+    <h3 class="card-heading">
+      <span>{emoji}</span>
+      <span data-key={titleKey}>{titleKey}</span>
+    </h3>
+
+    <div class="card-divider"></div>
+
+    <!-- Description -->
+    <p class="card-line">
+      <span class="line-prefix">&gt; desc:</span>
+      <span data-key={descKey} class="line-content">{descKey}</span>
+    </p>
+
+    <!-- Tech -->
+    {techKey && (
+      <p class="card-line">
+        <span class="line-prefix">&gt; tech:</span>
+        <span data-key={techKey} class="line-content">{techKey}</span>
+      </p>
+    )}
+
+    <!-- Features -->
+    {featuresKey && (
+      <p class="card-line">
+        <span class="line-prefix">&gt; features:</span>
+        <span data-key={featuresKey} class="line-content">{featuresKey}</span>
+      </p>
+    )}
+
+    <!-- Modes -->
+    {modesKey && (
+      <p class="card-line">
+        <span class="line-prefix">&gt; modes:</span>
+        <span data-key={modesKey} class="line-content">{modesKey}</span>
+      </p>
+    )}
+
+    <!-- Platform -->
+    {platformKey && (
+      <p class="card-line">
+        <span class="line-prefix">&gt; platform:</span>
+        <span data-key={platformKey} class="line-content">{platformKey}</span>
+      </p>
+    )}
+
+    <!-- CTA -->
+    <div class="card-cta-area">
+      <a
+        href={ctaLink}
+        class="card-cta"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span data-key={ctaKey} class="typing-cursor">{ctaKey}</span>
+      </a>
+
+      {repoKey && repoLink && (
+        <a
+          href={repoLink}
+          class="card-cta card-cta-secondary"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span data-key={repoKey}>{repoKey}</span>
+        </a>
+      )}
+    </div>
+  </div>
+</article>
+
+<style>
+  .project-card {
+    border: 1px solid var(--color-border-bright);
+    background: var(--color-surface);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    overflow: hidden;
+  }
+
+  .project-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .project-card:hover {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 20px color-mix(in srgb, var(--accent-color) 20%, transparent),
+                inset 0 0 20px color-mix(in srgb, var(--accent-color) 5%, transparent);
+  }
+
+  /* Title bar */
+  .card-titlebar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.4rem 0.75rem;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 0.7rem;
+    color: var(--color-text-dim);
+  }
+
+  .card-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+
+  .title-dash {
+    color: var(--color-border-bright);
+  }
+
+  .card-link-icon {
+    color: var(--color-text-dim);
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.15s ease;
+    min-width: 32px;
+    min-height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-link-icon:hover {
+    color: var(--accent-color);
+  }
+
+  /* Body */
+  .card-body {
+    padding: 1rem;
+  }
+
+  .card-heading {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-text-bright);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-divider {
+    height: 1px;
+    background: var(--color-border);
+    margin-bottom: 0.75rem;
+  }
+
+  /* Terminal-style lines */
+  .card-line {
+    font-size: 0.78rem;
+    line-height: 1.6;
+    margin-bottom: 0.4rem;
+    display: flex;
+    gap: 0.4rem;
+  }
+
+  .line-prefix {
+    color: var(--color-neon-cyan);
+    flex-shrink: 0;
+    font-weight: 700;
+  }
+
+  .line-content {
+    color: var(--color-text);
+  }
+
+  /* CTA area */
+  .card-cta-area {
+    margin-top: 0.75rem;
+    padding-top: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .card-cta {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.35rem 0;
+    transition: opacity 0.15s ease;
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+  }
+
+  .card-cta:hover {
+    opacity: 0.7;
+  }
+
+  .card-cta:focus-visible {
+    outline: 1px solid var(--accent-color);
+    outline-offset: 4px;
+  }
+
+  .card-cta-secondary {
+    color: var(--color-text-dim);
+  }
+
+  .card-cta-secondary:hover {
+    color: var(--color-text);
+  }
+</style>

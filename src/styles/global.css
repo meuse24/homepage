@@ -1,0 +1,271 @@
+@import "tailwindcss";
+
+@theme {
+  /* Terminal Color Palette */
+  --color-bg: #0a0a0f;
+  --color-surface: #0f1117;
+  --color-surface-light: #161922;
+  --color-terminal-green: #0fff50;
+  --color-neon-cyan: #00fff5;
+  --color-neon-magenta: #ff2d95;
+  --color-neon-amber: #ffb000;
+  --color-text: #b0b8c8;
+  --color-text-bright: #e0e6f0;
+  --color-text-dim: #5a6378;
+  --color-border: #1e2230;
+  --color-border-bright: #2a3040;
+
+  /* Responsive spacing system */
+  --spacing-xs: clamp(0.25rem, 0.5vw, 0.5rem);
+  --spacing-sm: clamp(0.5rem, 1vw, 0.75rem);
+  --spacing-md: clamp(0.75rem, 1.5vw, 1rem);
+  --spacing-lg: clamp(1rem, 2vw, 1.5rem);
+  --spacing-xl: clamp(1.5rem, 3vw, 2rem);
+  --spacing-2xl: clamp(2rem, 4vw, 3rem);
+  --spacing-3xl: clamp(3rem, 6vw, 4rem);
+
+  /* Layout */
+  --header-height: 48px;
+  --footer-height: 48px;
+}
+
+/* Reset & Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  color: var(--color-text);
+  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'SF Mono', monospace;
+  background: var(--color-bg);
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* CRT Scanline overlay on body */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.08) 2px,
+    rgba(0, 0, 0, 0.08) 4px
+  );
+  animation: scanline-drift 8s linear infinite;
+}
+
+@keyframes scanline-drift {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 100px; }
+}
+
+/* Subtle CSS noise background pattern */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(0, 255, 245, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 45, 149, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 50% 80%, rgba(15, 255, 80, 0.02) 0%, transparent 50%);
+}
+
+/* Responsive Images */
+img, svg, video, canvas, iframe {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+svg {
+  flex-shrink: 0;
+}
+
+/* Text wrapping */
+h1, h2, h3, h4, h5, h6, p, a, li {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+/* Enhanced Touch Targets */
+button, a, input, select, textarea {
+  touch-action: manipulation;
+}
+
+/* Smooth Scrolling */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* iOS Safari specific fixes */
+@supports (-webkit-touch-callout: none) {
+  html, body {
+    min-height: -webkit-fill-available;
+  }
+}
+
+/* Safe Area Inset Support */
+@supports (padding: max(0px)) {
+  .container {
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+  }
+}
+
+/* High DPI Displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  html, body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .hamburger,
+  #drawer,
+  #drawerOverlay {
+    display: none !important;
+  }
+
+  html, body {
+    background: white;
+    color: black;
+  }
+
+  body::after,
+  body::before {
+    display: none;
+  }
+}
+
+/* Screen reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.sr-only:focus,
+.focus\:not-sr-only:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: inherit;
+  margin: inherit;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* ===== GLOW UTILITIES ===== */
+.glow-cyan {
+  color: var(--color-neon-cyan);
+  text-shadow:
+    0 0 7px rgba(0, 255, 245, 0.6),
+    0 0 20px rgba(0, 255, 245, 0.3);
+}
+
+.glow-magenta {
+  color: var(--color-neon-magenta);
+  text-shadow:
+    0 0 7px rgba(255, 45, 149, 0.6),
+    0 0 20px rgba(255, 45, 149, 0.3);
+}
+
+.glow-green {
+  color: var(--color-terminal-green);
+  text-shadow:
+    0 0 7px rgba(15, 255, 80, 0.6),
+    0 0 20px rgba(15, 255, 80, 0.3);
+}
+
+.glow-amber {
+  color: var(--color-neon-amber);
+  text-shadow:
+    0 0 7px rgba(255, 176, 0, 0.6),
+    0 0 20px rgba(255, 176, 0, 0.3);
+}
+
+/* ===== TYPING CURSOR ===== */
+.typing-cursor::after {
+  content: '█';
+  animation: blink 1s step-end infinite;
+  color: var(--color-neon-cyan);
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ===== CRT FLICKER ===== */
+.crt-flicker {
+  animation: crt-flicker 4s infinite;
+}
+
+@keyframes crt-flicker {
+  0%, 100% { opacity: 1; }
+  92% { opacity: 1; }
+  93% { opacity: 0.95; }
+  94% { opacity: 1; }
+  96% { opacity: 0.97; }
+  97% { opacity: 1; }
+}
+
+/* ===== TERMINAL BOX BORDERS ===== */
+.terminal-box {
+  border: 1px solid var(--color-border-bright);
+  background: var(--color-surface);
+  position: relative;
+}
+
+.terminal-box:hover {
+  border-color: rgba(0, 255, 245, 0.3);
+  box-shadow: 0 0 15px rgba(0, 255, 245, 0.05), inset 0 0 15px rgba(0, 255, 245, 0.02);
+}

@@ -1,0 +1,374 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout>
+  <Header />
+
+  <main id="main-content" class="w-full" style="padding-top: var(--header-height);">
+    <!-- Hero Section -->
+    <Hero />
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects-section">
+      <h2 class="section-main-heading glow-cyan" data-key="section_heading">&gt; ls /projects/</h2>
+
+      <!-- WEB APPS -->
+      <div class="category-label" data-key="section_apps">// WEB APPS</div>
+      <div class="project-grid">
+        <ProjectCard
+          id="geoshare"
+          emoji="📍"
+          titleKey="geoshare_title"
+          descKey="geoshare_desc"
+          featuresKey="geoshare_features"
+          techKey="geoshare_tech"
+          ctaKey="geoshare_cta"
+          ctaLink="apps/GeoShare/index.html"
+          accentColor="#00fff5"
+        />
+
+        <ProjectCard
+          id="kineticscan"
+          emoji="🚀"
+          titleKey="kineticscan_title"
+          descKey="kineticscan_desc"
+          featuresKey="kineticscan_features"
+          techKey="kineticscan_tech"
+          ctaKey="kineticscan_cta"
+          ctaLink="https://meuse24.info/apps/kineticScan/index.html"
+          repoKey="kineticscan_repo"
+          repoLink="https://github.com/meuse24/kinetic_scan"
+          accentColor="#ff2d95"
+        />
+
+        <ProjectCard
+          id="matrixmentor"
+          emoji="🧮"
+          titleKey="matrixmentor_title"
+          descKey="matrixmentor_desc"
+          featuresKey="matrixmentor_features"
+          techKey="matrixmentor_tech"
+          ctaKey="matrixmentor_cta"
+          ctaLink="apps/matrixmentor/"
+          repoKey="matrixmentor_repo"
+          repoLink="https://github.com/meuse24/matrixmentor"
+          accentColor="#0fff50"
+        />
+
+        <ProjectCard
+          id="gehaltsberechnung"
+          emoji="💼"
+          titleKey="salary_title"
+          descKey="salary_desc"
+          featuresKey="salary_features"
+          techKey="salary_tech"
+          ctaKey="salary_cta"
+          ctaLink="apps/gehaltsberechnung/index.html"
+          accentColor="#0fff50"
+        />
+
+        <ProjectCard
+          id="schulungsmodell"
+          emoji="🎓"
+          titleKey="schulungsmodell_title"
+          descKey="schulungsmodell_desc"
+          featuresKey="schulungsmodell_features"
+          techKey="schulungsmodell_tech"
+          ctaKey="schulungsmodell_cta"
+          ctaLink="schulungsmodell/index.html"
+          accentColor="#ffb000"
+        />
+
+        <ProjectCard
+          id="sgv"
+          emoji="🧾"
+          titleKey="sgv_title"
+          descKey="sgv_desc"
+          featuresKey="sgv_features"
+          techKey="sgv_tech"
+          ctaKey="sgv_cta"
+          ctaLink="sgv/"
+          accentColor="#00fff5"
+        />
+
+        <ProjectCard
+          id="rechnung"
+          emoji="🧾"
+          titleKey="rechnung_title"
+          descKey="rechnung_desc"
+          featuresKey="rechnung_features"
+          techKey="rechnung_tech"
+          ctaKey="rechnung_cta"
+          ctaLink="apps/rechnung/index.html"
+          repoKey="rechnung_repo"
+          repoLink="https://github.com/meuse24/rechnung"
+          accentColor="#ff2d95"
+        />
+
+        <ProjectCard
+          id="archiv"
+          emoji="🏛️"
+          titleKey="archiv_title"
+          descKey="archiv_desc"
+          featuresKey="archiv_features"
+          techKey="archiv_tech"
+          ctaKey="archiv_cta"
+          ctaLink="archiv/"
+          accentColor="#0fff50"
+        />
+
+        <ProjectCard
+          id="forwarder"
+          emoji="📱"
+          titleKey="forwarder_title"
+          descKey="forwarder_desc"
+          platformKey="forwarder_platform"
+          ctaKey="forwarder_cta"
+          ctaLink="https://meuse24.github.io/forwarderA1/"
+          accentColor="#ffb000"
+        />
+
+        <ProjectCard
+          id="pst"
+          emoji="📧"
+          titleKey="pst_title"
+          descKey="pst_desc"
+          featuresKey="pst_features"
+          techKey="pst_tech"
+          ctaKey="pst_cta"
+          ctaLink="apps/pst/"
+          repoKey="pst_repo"
+          repoLink="https://github.com/meuse24/pst-reader"
+          accentColor="#00fff5"
+        />
+      </div>
+
+      <!-- GAMES -->
+      <div class="category-label" data-key="section_games">// GAMES</div>
+      <div class="project-grid">
+        <ProjectCard
+          id="quantris"
+          emoji="🎮"
+          titleKey="quantris_title"
+          descKey="quantris_desc"
+          featuresKey="quantris_features"
+          techKey="quantris_tech"
+          ctaKey="quantris_cta"
+          ctaLink="apps/Quantris/index.html"
+          accentColor="#ff2d95"
+        />
+
+        <ProjectCard
+          id="invader"
+          emoji="🚀"
+          titleKey="invader_title"
+          descKey="invader_desc"
+          techKey="invader_tech"
+          ctaKey="invader_cta"
+          ctaLink="apps/invader/invader_all_in_one.html"
+          accentColor="#0fff50"
+        />
+
+        <ProjectCard
+          id="breakout"
+          emoji="🧱"
+          titleKey="breakout_title"
+          descKey="breakout_desc"
+          featuresKey="breakout_features"
+          ctaKey="breakout_cta"
+          ctaLink="apps/1985Breakout/index.html"
+          accentColor="#ffb000"
+        />
+
+        <ProjectCard
+          id="navyclash"
+          emoji="⚓"
+          titleKey="navyclash_title"
+          descKey="navyclash_desc"
+          featuresKey="navyclash_features"
+          modesKey="navyclash_modes"
+          ctaKey="navyclash_cta"
+          ctaLink="apps/NavyClash/public/index.html"
+          accentColor="#00fff5"
+        />
+
+        <ProjectCard
+          id="snakem24"
+          emoji="🐍"
+          titleKey="snake_title"
+          descKey="snake_desc"
+          featuresKey="snake_features"
+          techKey="snake_tech"
+          ctaKey="snake_cta"
+          ctaLink="apps/snakeM24/index.html"
+          accentColor="#0fff50"
+        />
+
+        <ProjectCard
+          id="pucman"
+          emoji="👾"
+          titleKey="pucman_title"
+          descKey="pucman_desc"
+          featuresKey="pucman_features"
+          techKey="pucman_tech"
+          ctaKey="pucman_cta"
+          ctaLink="apps/pucman/index.html"
+          accentColor="#ffb000"
+        />
+
+        <ProjectCard
+          id="gameoflife"
+          emoji="🧬"
+          titleKey="gameoflife_title"
+          descKey="gameoflife_desc"
+          featuresKey="gameoflife_features"
+          techKey="gameoflife_tech"
+          ctaKey="gameoflife_cta"
+          ctaLink="apps/life/index.htm"
+          accentColor="#00fff5"
+        />
+
+        <ProjectCard
+          id="invader1978"
+          emoji="👾"
+          titleKey="invader1978_title"
+          descKey="invader1978_desc"
+          featuresKey="invader1978_features"
+          techKey="invader1978_tech"
+          ctaKey="invader1978_cta"
+          ctaLink="apps/invader1978/index.htm"
+          accentColor="#0fff50"
+        />
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style is:global>
+  /* Projects section */
+  .projects-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 1rem 4rem;
+    scroll-margin-top: 60px;
+  }
+
+  .section-main-heading {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* Category labels */
+  .category-label {
+    color: var(--color-text-dim);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    margin-bottom: 1rem;
+    margin-top: 2.5rem;
+    padding-left: 0.25rem;
+  }
+
+  .category-label:first-of-type {
+    margin-top: 0;
+  }
+
+  /* Project grid */
+  .project-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .project-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+    }
+  }
+
+  /* Stagger card visibility */
+  .project-card.visible:nth-child(1) { transition-delay: 0s; }
+  .project-card.visible:nth-child(2) { transition-delay: 0.08s; }
+  .project-card.visible:nth-child(3) { transition-delay: 0.16s; }
+  .project-card.visible:nth-child(4) { transition-delay: 0.24s; }
+  .project-card.visible:nth-child(5) { transition-delay: 0.32s; }
+  .project-card.visible:nth-child(6) { transition-delay: 0.4s; }
+  .project-card.visible:nth-child(7) { transition-delay: 0.48s; }
+  .project-card.visible:nth-child(8) { transition-delay: 0.56s; }
+  .project-card.visible:nth-child(9) { transition-delay: 0.64s; }
+  .project-card.visible:nth-child(10) { transition-delay: 0.72s; }
+  .project-card.visible:nth-child(11) { transition-delay: 0.8s; }
+</style>
+
+<script>
+  // IntersectionObserver for card fade-in
+  if ('IntersectionObserver' in window) {
+    const cardObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          cardObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -30px 0px'
+    });
+
+    document.querySelectorAll('.project-card').forEach(card => {
+      cardObserver.observe(card);
+    });
+  }
+
+  // Smooth scroll to sections with drawer close
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    const link = target.closest('a[href^="#"]') as HTMLAnchorElement;
+
+    if (link && link.hash) {
+      const section = document.querySelector(link.hash);
+      if (section) {
+        e.preventDefault();
+
+        // Close drawer if open
+        const drawer = document.getElementById('drawer');
+        const overlay = document.getElementById('drawerOverlay');
+        const menuBtn = document.getElementById('menuBtn');
+
+        if (drawer?.classList.contains('open')) {
+          drawer.classList.remove('open');
+          overlay?.classList.remove('open');
+          drawer.setAttribute('aria-hidden', 'true');
+          menuBtn?.setAttribute('aria-expanded', 'false');
+          document.documentElement.style.overflow = '';
+        }
+
+        // Smooth scroll to section
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        // Update URL hash
+        history.pushState(null, '', link.hash);
+      }
+    }
+  });
+
+  // Handle initial hash on page load
+  if (window.location.hash) {
+    setTimeout(() => {
+      const section = document.querySelector(window.location.hash);
+      section?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+  }
+</script>
+
+

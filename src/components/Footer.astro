@@ -1,0 +1,92 @@
+---
+// Terminal status bar footer
+---
+
+<footer class="footer-bar">
+  <div class="footer-inner">
+    <!-- Left: Session info -->
+    <div class="footer-left">
+      <span data-key="footer_session">SESSION: active</span>
+      <span class="footer-sep">|</span>
+      <span data-key="footer_uptime">UPTIME: since 2024</span>
+    </div>
+
+    <!-- Center: Copyright -->
+    <div class="footer-center">
+      &copy; <span id="year"></span> <span data-key="footer_copy">MEUSE24</span>
+    </div>
+
+    <!-- Right: Status dots -->
+    <div class="footer-right">
+      <span class="status-indicator active"></span>
+      <span class="status-indicator active"></span>
+      <span class="status-indicator active"></span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer-bar {
+    border-top: 1px solid var(--color-border-bright);
+    background: var(--color-surface);
+    height: var(--footer-height);
+  }
+
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    padding: 0 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-size: 0.65rem;
+    color: var(--color-text-dim);
+    letter-spacing: 0.05em;
+  }
+
+  .footer-sep {
+    margin: 0 0.5rem;
+    opacity: 0.4;
+  }
+
+  .footer-left {
+    display: none;
+  }
+
+  @media (min-width: 640px) {
+    .footer-left {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .footer-center {
+    font-weight: 700;
+  }
+
+  .footer-right {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+
+  .status-indicator {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-border);
+  }
+
+  .status-indicator.active {
+    background: var(--color-terminal-green);
+    box-shadow: 0 0 4px rgba(15, 255, 80, 0.5);
+  }
+</style>
+
+<script>
+  const yearSpan = document.getElementById('year');
+  if (yearSpan) {
+    yearSpan.textContent = new Date().getFullYear().toString();
+  }
+</script>

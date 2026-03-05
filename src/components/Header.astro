@@ -1,0 +1,436 @@
+---
+// Terminal-style header with navigation drawer
+---
+
+<!-- Skip to main content link for keyboard users -->
+<a
+  href="#main-content"
+  class="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-[9999] focus:bg-[var(--color-neon-cyan)] focus:text-[var(--color-bg)] focus:px-4 focus:py-2 focus:font-bold"
+>
+  Skip to main content
+</a>
+
+<!-- Terminal Title Bar / Header -->
+<header class="header-bar">
+  <div class="header-inner">
+    <!-- Left: OS label with status dot -->
+    <a
+      href="#home"
+      class="header-label header-home-link"
+      aria-label="Jump to homepage start"
+    >
+      <span class="status-dot"></span>
+      <span class="glow-cyan header-title">MEUSE24_OS</span>
+    </a>
+
+    <!-- Right: Language buttons + hamburger -->
+    <div class="header-actions">
+      <button
+        id="lang-de"
+        class="lang-btn"
+        aria-label="Deutsch"
+        aria-pressed="false"
+        type="button"
+      >[DE]</button>
+      <button
+        id="lang-en"
+        class="lang-btn"
+        aria-label="English"
+        aria-pressed="false"
+        type="button"
+      >[EN]</button>
+
+      <button
+        id="menuBtn"
+        class="menu-btn"
+        aria-label="Open menu"
+        aria-controls="drawer"
+        aria-expanded="false"
+      >
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Drawer Overlay -->
+<div id="drawerOverlay" class="drawer-overlay"></div>
+
+<!-- Terminal Drawer -->
+<aside
+  id="drawer"
+  class="drawer"
+  aria-hidden="true"
+  aria-label="Navigation menu"
+>
+  <div class="drawer-titlebar">
+    <span class="glow-cyan text-xs font-bold tracking-wider">NAVIGATION</span>
+    <button
+      id="closeBtn"
+      class="close-btn"
+      aria-label="Close menu"
+    >[x]</button>
+  </div>
+
+  <nav class="drawer-nav">
+    <!-- APPS -->
+    <div class="nav-category" data-key="section_apps">// WEB APPS</div>
+    <ul class="nav-list">
+      <li><a href="#home" data-key="nav_home" class="nav-link">> cd /home</a></li>
+      <li><a href="#geoshare" data-key="nav_geoshare" class="nav-link">> cd /projects/geoshare</a></li>
+      <li><a href="#kineticscan" data-key="nav_kineticscan" class="nav-link">> cd /projects/kineticscan</a></li>
+      <li><a href="#matrixmentor" data-key="nav_matrixmentor" class="nav-link">> cd /projects/matrixmentor</a></li>
+      <li><a href="#gehaltsberechnung" data-key="nav_salary" class="nav-link">> cd /projects/salary</a></li>
+      <li><a href="#schulungsmodell" data-key="nav_schulungsmodell" class="nav-link">> cd /projects/schulungsmodell</a></li>
+      <li><a href="#sgv" data-key="nav_sgv" class="nav-link">> cd /projects/sgv</a></li>
+      <li><a href="#rechnung" data-key="nav_rechnung" class="nav-link">> cd /projects/rechnung</a></li>
+      <li><a href="#archiv" data-key="nav_archiv" class="nav-link">> cd /projects/archiv</a></li>
+      <li><a href="#forwarder" data-key="nav_forwarder" class="nav-link">> cd /projects/forwarder</a></li>
+      <li><a href="#pst" data-key="nav_pst" class="nav-link">> cd /projects/pst</a></li>
+    </ul>
+
+    <!-- GAMES -->
+    <div class="nav-category" data-key="section_games">// GAMES</div>
+    <ul class="nav-list">
+      <li><a href="#quantris" data-key="nav_quantris" class="nav-link">> cd /projects/quantris</a></li>
+      <li><a href="#invader" data-key="nav_invader" class="nav-link">> cd /projects/invader</a></li>
+      <li><a href="#breakout" data-key="nav_breakout" class="nav-link">> cd /projects/breakout</a></li>
+      <li><a href="#navyclash" data-key="nav_navyclash" class="nav-link">> cd /projects/navyclash</a></li>
+      <li><a href="#snakem24" data-key="nav_snake" class="nav-link">> cd /projects/snake</a></li>
+      <li><a href="#pucman" data-key="nav_pucman" class="nav-link">> cd /projects/pucman</a></li>
+      <li><a href="#gameoflife" data-key="nav_gameoflife" class="nav-link">> cd /projects/gameoflife</a></li>
+      <li><a href="#invader1978" data-key="nav_invader1978" class="nav-link">> cd /projects/invader1978</a></li>
+    </ul>
+  </nav>
+</aside>
+
+<style>
+  /* Header bar */
+  .header-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    height: var(--header-height);
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border-bright);
+    backdrop-filter: blur(12px);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    padding: 0 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .header-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .header-home-link {
+    text-decoration: none;
+    color: inherit;
+    min-height: 36px;
+    padding: 0.15rem 0.35rem;
+    border: 1px solid transparent;
+    transition: border-color 0.15s ease;
+  }
+
+  .header-home-link:hover {
+    border-color: var(--color-neon-cyan);
+  }
+
+  .header-home-link:focus-visible {
+    border-color: var(--color-neon-cyan);
+    outline: 1px solid var(--color-neon-cyan);
+    outline-offset: 2px;
+  }
+
+  .header-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-terminal-green);
+    box-shadow: 0 0 6px rgba(15, 255, 80, 0.6);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  /* Language buttons */
+  .lang-btn {
+    background: transparent;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-dim);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.25rem 0.5rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    min-width: 36px;
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lang-btn:hover,
+  .lang-btn:focus-visible {
+    color: var(--color-neon-cyan);
+    border-color: var(--color-neon-cyan);
+  }
+
+  .lang-btn:focus-visible {
+    outline: 1px solid var(--color-neon-cyan);
+    outline-offset: 2px;
+  }
+
+  .lang-btn.active {
+    color: var(--color-neon-cyan);
+    border-color: var(--color-neon-cyan);
+    box-shadow: 0 0 8px rgba(0, 255, 245, 0.2);
+  }
+
+  /* Menu button */
+  .menu-btn {
+    background: transparent;
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+    padding: 0.25rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    min-width: 36px;
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0.25rem;
+  }
+
+  .menu-btn:hover,
+  .menu-btn:focus-visible {
+    color: var(--color-neon-cyan);
+    border-color: var(--color-neon-cyan);
+  }
+
+  .menu-btn:focus-visible {
+    outline: 1px solid var(--color-neon-cyan);
+    outline-offset: 2px;
+  }
+
+  /* Drawer overlay */
+  .drawer-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 900;
+    background: rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .drawer-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Drawer */
+  .drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    width: min(85vw, 380px);
+    height: 100vh;
+    background: var(--color-surface);
+    border-left: 1px solid var(--color-border-bright);
+    transform: translateX(100%);
+    transition: transform 0.25s ease;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .drawer.open {
+    transform: translateX(0);
+  }
+
+  .drawer-titlebar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--color-border);
+    flex-shrink: 0;
+  }
+
+  .close-btn {
+    background: transparent;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-dim);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.5rem;
+    cursor: pointer;
+    min-width: 36px;
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+  }
+
+  .close-btn:hover,
+  .close-btn:focus-visible {
+    color: var(--color-neon-magenta);
+    border-color: var(--color-neon-magenta);
+  }
+
+  /* Navigation */
+  .drawer-nav {
+    padding: 1rem;
+    flex: 1;
+  }
+
+  .nav-category {
+    color: var(--color-text-dim);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+    padding-left: 0.5rem;
+  }
+
+  .nav-category:first-child {
+    margin-top: 0;
+  }
+
+  .nav-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .nav-link {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    text-decoration: none;
+    color: var(--color-text);
+    font-size: 0.75rem;
+    transition: all 0.15s ease;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    border-left: 2px solid transparent;
+  }
+
+  .nav-link:hover,
+  .nav-link:focus-visible {
+    color: var(--color-neon-cyan);
+    background: rgba(0, 255, 245, 0.05);
+    border-left-color: var(--color-neon-cyan);
+  }
+
+  .nav-link:focus-visible {
+    outline: none;
+  }
+</style>
+
+<script>
+  import { setLanguage, initLanguage, type Language } from '../scripts/i18n';
+
+  // Drawer functionality
+  const menuBtn = document.getElementById('menuBtn');
+  const drawer = document.getElementById('drawer');
+  const closeBtn = document.getElementById('closeBtn');
+  const overlay = document.getElementById('drawerOverlay');
+
+  const openDrawer = () => {
+    drawer?.classList.add('open');
+    overlay?.classList.add('open');
+    drawer?.setAttribute('aria-hidden', 'false');
+    menuBtn?.setAttribute('aria-expanded', 'true');
+    document.documentElement.style.overflow = 'hidden';
+
+    const firstLink = drawer?.querySelector('a');
+    firstLink?.focus();
+  };
+
+  const closeDrawer = () => {
+    drawer?.classList.remove('open');
+    overlay?.classList.remove('open');
+    drawer?.setAttribute('aria-hidden', 'true');
+    menuBtn?.setAttribute('aria-expanded', 'false');
+    menuBtn?.focus();
+    document.documentElement.style.overflow = '';
+  };
+
+  menuBtn?.addEventListener('click', openDrawer);
+  closeBtn?.addEventListener('click', closeDrawer);
+  overlay?.addEventListener('click', closeDrawer);
+
+  // Close on ESC
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && drawer?.classList.contains('open')) closeDrawer();
+  });
+
+  // Focus trap
+  drawer?.addEventListener('keydown', (e) => {
+    if (e.key !== 'Tab') return;
+    const focusables = drawer.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+    const first = focusables[0] as HTMLElement;
+    const last = focusables[focusables.length - 1] as HTMLElement;
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  });
+
+  // Language switcher
+  const langDeBtn = document.getElementById('lang-de');
+  const langEnBtn = document.getElementById('lang-en');
+
+  langDeBtn?.addEventListener('click', () => setLanguage('de'));
+  langEnBtn?.addEventListener('click', () => setLanguage('en'));
+
+  // Initialize language
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLanguage);
+  } else {
+    initLanguage();
+  }
+</script>
+
