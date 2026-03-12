@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node -e \"import('fs').then(fs=>{['content-assets.mjs','content-modules.mjs'].forEach(f=>{try{fs.rmSync('../Homepage/dist/'+f)}catch{}})})\"",
     "preview": "astro preview",
     "astro": "astro"
   },
