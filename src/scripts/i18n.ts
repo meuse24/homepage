@@ -22,6 +22,9 @@ export const translations = {
     "nav_gameoflife": "> cd /projects/gameoflife",
     "nav_invader1978": "> cd /projects/invader1978",
     "nav_pst": "> cd /projects/pst",
+    "nav_solitaer": "> cd /projects/solitaer",
+    "nav_artillery": "> cd /projects/artillery",
+    "nav_pong": "> cd /projects/pong",
 
     // Hero boot sequence
     "hero_boot_1": "> SYSTEM BOOT...",
@@ -129,6 +132,21 @@ export const translations = {
     "pst_tech": "React 19, TypeScript, Vite, Tailwind CSS v4, pst-extractor, TanStack Virtual",
     "pst_cta": "$ open pst-reader",
     "pst_repo": "$ git clone repo",
+    "solitaer_title": "Dani Solitaire",
+    "solitaer_desc": "Classic Klondike Solitaire card game with neon visuals. Sort all cards onto the foundations by suit and rank to win.",
+    "solitaer_features": "Card animations, Score tracking, Undo function, Touch support",
+    "solitaer_tech": "Vanilla JavaScript, HTML5 Canvas, CSS3",
+    "solitaer_cta": "$ open solitaire",
+    "artillery_title": "Crater Command",
+    "artillery_desc": "Artillery battle game inspired by retro classics. Aim your cannon, calculate angle and power, and take out enemy positions.",
+    "artillery_features": "Physics simulation, Wind effects, Sound & Music, Multi-level",
+    "artillery_tech": "Vite, JavaScript, Web Audio API",
+    "artillery_cta": "$ open crater command",
+    "pong_title": "Neon Pong",
+    "pong_desc": "The original table tennis arcade classic in neon style. Simple controls, timeless 1v1 gameplay.",
+    "pong_features": "2-Player mode, Neon visuals, Classic gameplay",
+    "pong_tech": "Vanilla JavaScript, HTML5 Canvas",
+    "pong_cta": "$ open pong",
 
     // Footer
     "footer_session": "SESSION: active",
@@ -156,6 +174,9 @@ export const translations = {
     "nav_gameoflife": "> cd /projects/gameoflife",
     "nav_invader1978": "> cd /projects/invader1978",
     "nav_pst": "> cd /projects/pst",
+    "nav_solitaer": "> cd /projects/solitaer",
+    "nav_artillery": "> cd /projects/artillery",
+    "nav_pong": "> cd /projects/pong",
 
     // Hero boot sequence
     "hero_boot_1": "> SYSTEMSTART...",
@@ -263,6 +284,21 @@ export const translations = {
     "pst_tech": "React 19, TypeScript, Vite, Tailwind CSS v4, pst-extractor, TanStack Virtual",
     "pst_cta": "$ open pst-reader",
     "pst_repo": "$ git clone repo",
+    "solitaer_title": "Dani Solitär",
+    "solitaer_desc": "Klassisches Klondike-Solitär mit Neon-Optik. Sortiere alle Karten nach Farbe und Wert auf die Ablagestapel um zu gewinnen.",
+    "solitaer_features": "Karten-Animationen, Punkte-Zählung, Rückgängig-Funktion, Touch-Unterstützung",
+    "solitaer_tech": "Vanilla JavaScript, HTML5 Canvas, CSS3",
+    "solitaer_cta": "$ open solitaire",
+    "artillery_title": "Crater Command",
+    "artillery_desc": "Artillerie-Kampfspiel im Retro-Stil. Richte deine Kanone aus, berechne Winkel und Kraft und eliminiere feindliche Stellungen.",
+    "artillery_features": "Physik-Simulation, Wind-Effekte, Sound & Musik, Multi-Level",
+    "artillery_tech": "Vite, JavaScript, Web Audio API",
+    "artillery_cta": "$ open crater command",
+    "pong_title": "Neon Pong",
+    "pong_desc": "Der Arcade-Klassiker Tischtennis im Neon-Stil. Einfache Steuerung, zeitloses 1-gegen-1-Gameplay.",
+    "pong_features": "2-Spieler-Modus, Neon-Optik, Klassisches Gameplay",
+    "pong_tech": "Vanilla JavaScript, HTML5 Canvas",
+    "pong_cta": "$ open pong",
 
     // Footer
     "footer_session": "SITZUNG: aktiv",
