@@ -290,9 +290,9 @@ import Footer from '../components/Footer.astro';
 <style is:global>
   /* Projects section */
   .projects-section {
-    max-width: 1100px;
+    max-width: min(1440px, 95vw);
     margin: 0 auto;
-    padding: 2rem 1rem 4rem;
+    padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1rem, 2vw, 2rem) clamp(3rem, 6vw, 5rem);
     scroll-margin-top: 60px;
   }
 
@@ -325,25 +325,34 @@ import Footer from '../components/Footer.astro';
     gap: 1rem;
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 640px) {
     .project-grid {
       grid-template-columns: repeat(2, 1fr);
       gap: 1.25rem;
     }
   }
 
+  @media (min-width: 1100px) {
+    .project-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+  }
+
   /* Stagger card visibility */
-  .project-card.visible:nth-child(1) { transition-delay: 0s; }
-  .project-card.visible:nth-child(2) { transition-delay: 0.08s; }
-  .project-card.visible:nth-child(3) { transition-delay: 0.16s; }
-  .project-card.visible:nth-child(4) { transition-delay: 0.24s; }
-  .project-card.visible:nth-child(5) { transition-delay: 0.32s; }
-  .project-card.visible:nth-child(6) { transition-delay: 0.4s; }
-  .project-card.visible:nth-child(7) { transition-delay: 0.48s; }
-  .project-card.visible:nth-child(8) { transition-delay: 0.56s; }
-  .project-card.visible:nth-child(9) { transition-delay: 0.64s; }
-  .project-card.visible:nth-child(10) { transition-delay: 0.72s; }
-  .project-card.visible:nth-child(11) { transition-delay: 0.8s; }
+  .project-card.visible:nth-child(1)  { transition-delay: 0s; }
+  .project-card.visible:nth-child(2)  { transition-delay: 0.07s; }
+  .project-card.visible:nth-child(3)  { transition-delay: 0.14s; }
+  .project-card.visible:nth-child(4)  { transition-delay: 0.21s; }
+  .project-card.visible:nth-child(5)  { transition-delay: 0.28s; }
+  .project-card.visible:nth-child(6)  { transition-delay: 0.35s; }
+  .project-card.visible:nth-child(7)  { transition-delay: 0.42s; }
+  .project-card.visible:nth-child(8)  { transition-delay: 0.49s; }
+  .project-card.visible:nth-child(9)  { transition-delay: 0.56s; }
+  .project-card.visible:nth-child(10) { transition-delay: 0.63s; }
+  .project-card.visible:nth-child(11) { transition-delay: 0.70s; }
+  .project-card.visible:nth-child(12) { transition-delay: 0.77s; }
+  .project-card.visible:nth-child(13) { transition-delay: 0.84s; }
 </style>
 
 <script>
