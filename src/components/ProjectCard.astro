@@ -143,8 +143,16 @@ const projectName = id;
 
   .project-card:hover {
     border-color: var(--accent-color);
-    box-shadow: 0 0 20px color-mix(in srgb, var(--accent-color) 20%, transparent),
-                inset 0 0 20px color-mix(in srgb, var(--accent-color) 5%, transparent);
+    /* Fallback for browsers without color-mix (Safari < 16.2) */
+    box-shadow: 0 0 20px rgba(0, 255, 245, 0.15),
+                inset 0 0 20px rgba(0, 255, 245, 0.03);
+  }
+
+  @supports (color: color-mix(in srgb, red, blue)) {
+    .project-card:hover {
+      box-shadow: 0 0 20px color-mix(in srgb, var(--accent-color) 20%, transparent),
+                  inset 0 0 20px color-mix(in srgb, var(--accent-color) 5%, transparent);
+    }
   }
 
   /* Title bar */

@@ -4,6 +4,9 @@
 
 <section id="home" class="hero-section">
   <div class="terminal-hero crt-flicker" role="banner">
+    <!-- Matrix rain canvas background -->
+    <canvas id="matrixCanvas" class="matrix-canvas" aria-hidden="true"></canvas>
+
     <!-- Terminal title bar -->
     <div class="terminal-titlebar">
       <span class="glow-cyan">MEUSE24_OS v2.0</span>
@@ -63,6 +66,7 @@
     align-items: stretch;
     justify-content: center;
     min-height: calc(100vh - var(--header-height));
+    min-height: calc(100dvh - var(--header-height));
     padding: 0.75rem clamp(0.5rem, 2vw, 1.5rem);
   }
 
@@ -77,6 +81,19 @@
     flex-direction: column;
     box-shadow: 0 0 30px rgba(0, 255, 245, 0.05);
     transition: box-shadow 0.3s ease;
+    position: relative;
+  }
+
+  /* Matrix rain canvas */
+  .matrix-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.18;
   }
 
   .terminal-hero:hover {
@@ -94,6 +111,8 @@
     font-weight: 700;
     letter-spacing: 0.05em;
     flex-shrink: 0;
+    position: relative;
+    z-index: 1;
   }
 
   .terminal-dots {
@@ -120,6 +139,8 @@
     font-size: clamp(0.8rem, 1.2vw, 0.95rem);
     line-height: 1.8;
     min-height: 0;
+    position: relative;
+    z-index: 1;
   }
 
   /* Boot lines – stay at top */
@@ -249,3 +270,185 @@
     outline-offset: 4px;
   }
 </style>
+
+<script>
+  const canvas = document.getElementById('matrixCanvas') as HTMLCanvasElement;
+  if (canvas) {
+    const ctx = canvas.getContext('2d')!;
+
+    // Detect iOS/Safari for performance adjustments
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    const isLowPower = isIOS || (isSafari && navigator.maxTouchPoints > 0);
+
+    // Character set — code-focused: braces, operators, hex, fragments of syntax
+    const chars =
+      '01{}[]()<>=;:./\\|&!?#@$%^~+-*_' +
+      'const let var fn async await return if else for while' +
+      'ABCDEF0123456789abcdef' +
+      '=>!=&&||::>><<' +
+      '▪▫▸▹◆◇░▒▓';
+    // Split into individual drawing units (single chars from the concatenated string)
+    const charArr = chars.split('');
+    const fontSize = 14;
+    const trailLength = isLowPower ? 14 : 22;
+
+    // Site color palette — each column picks a hue
+    const palettes = [
+      { head: '#b0ffff', bright: '#ffffff', r: 0, g: 220, b: 245 },   // cyan
+      { head: '#b0ffb0', bright: '#e0ffe0', r: 15, g: 235, b: 80 },   // green
+      { head: '#ffb0d0', bright: '#ffe0f0', r: 255, g: 80, b: 160 },  // magenta
+      { head: '#ffe0a0', bright: '#fff5d0', r: 255, g: 190, b: 40 },  // amber
+    ];
+
+    interface Column {
+      y: number;
+      speed: number;
+      accum: number;
+      bright: boolean;
+      reverse: boolean;     // falls upward
+      palette: number;      // index into palettes
+      chars: string[];
+    }
+
+    let columns: Column[] = [];
+    let colCount = 0;
+
+    function randChar(): string {
+      return charArr[Math.floor(Math.random() * charArr.length)];
+    }
+
+    function makeColumn(startOffscreen = true): Column {
+      const maxRow = Math.ceil((canvas.clientHeight || 600) / fontSize);
+      const reverse = Math.random() < 0.12; // ~12% fall upward
+      return {
+        y: reverse
+          ? (startOffscreen ? maxRow + Math.random() * 30 : Math.floor(Math.random() * maxRow))
+          : (startOffscreen ? Math.random() * -35 : Math.floor(Math.random() * maxRow)),
+        speed: 0.2 + Math.random() * 0.6,
+        accum: 0,
+        bright: Math.random() < 0.06,
+        reverse,
+        palette: Math.floor(Math.random() * palettes.length),
+        chars: Array.from({ length: trailLength }, randChar),
+      };
+    }
+
+    function resize() {
+      const rect = canvas.parentElement!.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      canvas.style.width = rect.width + 'px';
+      canvas.style.height = rect.height + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      const newCount = Math.floor(rect.width / fontSize);
+      while (columns.length < newCount) columns.push(makeColumn(true));
+      columns.length = newCount;
+      colCount = newCount;
+    }
+
+    function draw() {
+      const w = canvas.clientWidth;
+      const h = canvas.clientHeight;
+
+      ctx.fillStyle = 'rgba(10, 10, 15, 0.1)';
+      ctx.fillRect(0, 0, w, h);
+      ctx.font = `${fontSize}px monospace`;
+
+      const maxRow = Math.ceil(h / fontSize);
+
+      for (let i = 0; i < colCount; i++) {
+        const col = columns[i];
+        const pal = palettes[col.palette];
+        const x = i * fontSize;
+        const dir = col.reverse ? -1 : 1;
+
+        // Advance
+        col.accum += col.speed;
+        while (col.accum >= 1) {
+          col.accum -= 1;
+          col.y += dir;
+          col.chars.pop();
+          col.chars.unshift(randChar());
+        }
+
+        // Flicker trail chars
+        if (Math.random() < 0.25) {
+          const idx = Math.floor(Math.random() * trailLength);
+          col.chars[idx] = randChar();
+        }
+
+        // Draw trail
+        const headY = Math.floor(col.y);
+        for (let j = 0; j < trailLength; j++) {
+          const row = headY - j * dir;
+          if (row < 0 || row > maxRow) continue;
+          const py = row * fontSize;
+
+          if (j === 0) {
+            // Glowing head
+            if (!isLowPower) {
+              ctx.shadowColor = col.bright ? pal.bright : pal.head;
+              ctx.shadowBlur = col.bright ? 18 : 10;
+            }
+            ctx.fillStyle = col.bright ? pal.bright : pal.head;
+            ctx.fillText(col.chars[j], x, py);
+            ctx.shadowBlur = 0;
+          } else if (j === 1) {
+            ctx.fillStyle = `rgba(${pal.r}, ${pal.g}, ${pal.b}, 0.85)`;
+            ctx.fillText(col.chars[j], x, py);
+          } else {
+            // Fading trail with color
+            const fade = 1 - j / trailLength;
+            const alpha = fade * fade * 0.55;
+            if (alpha < 0.02) continue;
+
+            // Desaturate deeper in the trail
+            const desat = j / trailLength;
+            const r = Math.floor(pal.r * (1 - desat * 0.5));
+            const g = Math.floor(pal.g * (1 - desat * 0.3));
+            const b = Math.floor(pal.b * (1 - desat * 0.2));
+            ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
+            ctx.fillText(col.chars[j], x, py);
+          }
+        }
+
+        // Reset column
+        if (col.reverse) {
+          if (col.y + trailLength < 0) {
+            if (Math.random() > 0.94) columns[i] = makeColumn(true);
+          }
+        } else {
+          if (col.y - trailLength > maxRow) {
+            if (Math.random() > 0.94) columns[i] = makeColumn(true);
+          }
+        }
+      }
+    }
+
+    resize();
+    window.addEventListener('resize', resize);
+
+    const frameInterval = isLowPower ? 50 : 33;
+    let lastFrame = 0;
+    let running = true;
+
+    function loop(time: number) {
+      if (running && time - lastFrame > frameInterval) {
+        draw();
+        lastFrame = time;
+      }
+      requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
+
+    const observer = new IntersectionObserver(
+      (entries) => { running = entries[0].isIntersecting; },
+      { threshold: 0 },
+    );
+    observer.observe(canvas);
+  }
+</script>
